@@ -1,5 +1,9 @@
 #include <Adafruit_BMP085.h>
 #include <Wire.h>
+#include <BLEDevice.h>
+#include <BLEServer.h>
+#include <BLEUtils.h>
+#include <BLE2902.h>
 
 unsigned long timeSaved = 0;
 
@@ -18,7 +22,6 @@ int waterLevel;//not used
 //gnd - ground
 //scl (must be I2C) 22
 //sda  (must be I2C) 21
-
 Adafruit_BMP085 bmp180;
 int correction = 32;
 
@@ -43,12 +46,27 @@ void loop() {
     checkForWater();
 
     //temperature above the water
-    Serial.print("Temperature(above the water): ");
-    Serial.print(bmp180.readTemperature());
-    Serial.println("°C");
+    float temperature = bmp180.readTemperature();
+    if (temperature == 0) { // Replace 0 with another value if it’s common for invalid readings
+      Serial.println("Temperature reading failed.");
+    } else {
+      Serial.print("Temperature (above the water): ");
+      Serial.print(temperature);
+      Serial.println("°C");
+    }
 
     //atmospheric pressure
-    Serial.print((bmp180.readPressure() + correction*100)/100.00);
+    Serial.print("Pressure: ");
+
+    //Serial.print((bmp180.readPressure() + correction*100)/100.00);
+    
+    float pressure = bmp180.readPressure() + correction * 100;
+    if (pressure != 0) {
+      Serial.print(pressure / 100.00);
+    } else {
+      Serial.println("Pressure reading invalid or zero, skipping division.");
+    }
+
     Serial.println(" hPa");
 
     Serial.println("-------------------------------");
@@ -64,4 +82,6 @@ void checkForWater()
   delay(10);
   int waterLevel = analogRead(waterSensorRead);
   Serial.println(waterLevel);
+  delay(1000);
+  digitalWrite(waterSensorPower, LOW);
 }
