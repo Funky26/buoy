@@ -1,3 +1,4 @@
+[IN PROGRESS]
 # SMART BUOY  
 The Smart IoT Buoy is a compact and efficient water monitoring system designed for real-time environmental data collection. The project utilizes a microcontroller as the core processing unit, interfacing with multiple sensors to gather crucial water-related parameters.
 ## annotation  
@@ -12,8 +13,11 @@ The intelligent buoy is designed to provide reliable water environment monitorin
   -waterproof DS18B20  
   -BMP180  
   -water surface sensor  
+<img src="https://github.com/user-attachments/assets/70ea07f3-a163-4f29-b179-6837b3fca418" width ="500"  />
+<img src="https://github.com/user-attachments/assets/8943497c-8f8f-4cd8-8250-691718be86c3" width ="700"  />
 
-### Other hardware:  
+### Other hardware: 
+
 
   -2x solar panel (6V 1W 200mA)  
   -2x batteries ()  
